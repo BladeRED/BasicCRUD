@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasicCRUD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1000">
     <Grid>
+        <ListBox 
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            VerticalContentAlignment="Center"
+            Background="IndianRed"
+            ItemsSource="{Binding Gamers}"
+            >
+
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <Grid ShowGridLines="False" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="200"/>
+
+                        </Grid.ColumnDefinitions>
+
+
+                        <Label Grid.Column="0" Content="{Binding Id}" />
+                        <Label Grid.Column="1" Content="{Binding Name}" />
+                        <Label Grid.Column="2" Content="{Binding Age}" />
+                        <Label Grid.Column="3" Content="{Binding FavouriteGame}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+        </ListBox>
 
     </Grid>
 </Window>
