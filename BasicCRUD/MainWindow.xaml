@@ -7,35 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="1000">
     <Grid>
-        <ListBox 
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center"
-            VerticalContentAlignment="Center"
-            Background="IndianRed"
-            ItemsSource="{Binding Gamers}"
-            >
 
-            <ListBox.ItemTemplate >
-                <DataTemplate>
-                    <Grid ShowGridLines="False" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="200"/>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="200"/>
-
-                        </Grid.ColumnDefinitions>
-
-
-                        <Label Grid.Column="0" Content="{Binding Id}" />
-                        <Label Grid.Column="1" Content="{Binding Name}" />
-                        <Label Grid.Column="2" Content="{Binding Age}" />
-                        <Label Grid.Column="3" Content="{Binding FavouriteGame}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-
-        </ListBox>
-
+        <Button Command="{Binding GetGamersCommand}" Content="Get All Users" HorizontalAlignment="Center" Margin="0,305,0,0" VerticalAlignment="Top" Width="500" Background="Magenta" Visibility="Visible"/>
+        <DataGrid ItemsSource="{Binding Gamers}" AutoGenerateColumns="True" Margin="162,21,135,134">
+        </DataGrid>
     </Grid>
 </Window>
