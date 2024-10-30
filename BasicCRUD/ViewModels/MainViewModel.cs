@@ -31,10 +31,13 @@ namespace BasicCRUD.ViewModels
 
         private RelayCommand _getGamersCommand;
 
+        // event of INotify which is called when a property change //
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            // The Invoke is used here for update one of the user interface from the thread ui //
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         }

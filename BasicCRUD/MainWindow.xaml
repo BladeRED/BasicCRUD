@@ -3,13 +3,39 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BasicCRUD"
+        xmlns:local="clr-namespace:BasicCRUD" xmlns:viewmodels="clr-namespace:BasicCRUD.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="1000">
+        Title="MainWindow" Height="500" Width="1200">
     <Grid>
 
-        <Button Command="{Binding GetGamersCommand}" Content="Get All Users" HorizontalAlignment="Center" Margin="0,305,0,0" VerticalAlignment="Top" Width="500" Background="Magenta" Visibility="Visible"/>
-        <DataGrid ItemsSource="{Binding Gamers}" AutoGenerateColumns="True" Margin="162,21,135,134">
-        </DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="53*"/>
+            <ColumnDefinition Width="147*"/>
+        </Grid.ColumnDefinitions>
+
+        <Button Command="{Binding GetGamersCommand}" Content="Get All Users" HorizontalAlignment="Left" Margin="498,320,0,0" VerticalAlignment="Top" Width="152" Background="LightBlue" Visibility="Visible" Grid.Column="1"/>
+        <DataGrid ItemsSource="{Binding Gamers}" AutoGenerateColumns="True" Margin="309,19,93,181" Grid.Column="1"/>
+        <TextBlock Grid.Column="1" Margin="137,281,600,179"></TextBlock>
+
+
+        <Grid Grid.ColumnSpan="2" Margin="35,19,650,179">
+
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+            <Label Grid.Row ="0" Content="Name of the Gamer"/>
+            <TextBox Grid.Row="0" Margin="10,35,83,25"></TextBox>
+            <Label Grid.Row ="1" Content="Age of the Gamer"/>
+            <TextBox  Grid.Row ="1" Margin="10,48,119,13"/>
+            <Label Grid.Row ="2" Content="Favourite Game"/>
+            <TextBox  Grid.Row ="2" Margin="10,34,69,12"></TextBox>
+            <Button Content="Create Gamer" Margin="190,116,191,-49" Background="LightGreen" Grid.Row="2"></Button>
+
+        </Grid>
     </Grid>
+
+
 </Window>
