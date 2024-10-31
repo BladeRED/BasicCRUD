@@ -19,6 +19,14 @@ namespace BasicCRUD.Models
         {
         }
 
+        public Gamer(string name, int age, string favouriteGame)
+        {
+            
+            Name = name;
+            Age = age;
+            FavouriteGame = favouriteGame;
+        }
+
         public Gamer(int id, string name, int age, string favouriteGame)
         {
             Id = id;

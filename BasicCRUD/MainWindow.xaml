@@ -27,12 +27,12 @@
 
             </Grid.RowDefinitions>
             <Label Grid.Row ="0" Content="Name of the Gamer"/>
-            <TextBox Grid.Row="0" Margin="10,35,83,25"></TextBox>
-            <Label Grid.Row ="1" Content="Age of the Gamer"/>
-            <TextBox  Grid.Row ="1" Margin="10,48,119,13"/>
+            <TextBox Grid.Row="0" Margin="10,35,83,25" Text="{Binding Gamer.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Row ="1" Content="Age of the Gamer" />
+            <TextBox  Grid.Row ="1" Margin="10,48,119,13" Text="{Binding Gamer.Age, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row ="2" Content="Favourite Game"/>
-            <TextBox  Grid.Row ="2" Margin="10,34,69,12"></TextBox>
-            <Button Content="Create Gamer" Margin="190,116,191,-49" Background="LightGreen" Grid.Row="2"></Button>
+            <TextBox  Grid.Row ="2" Margin="10,34,69,12" Text="{Binding Gamer.FavouriteGame, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Command="{Binding AddGamersCommand}" Content="Create Gamer" Margin="190,116,191,-49" Background="LightGreen" Grid.Row="2"></Button>
 
         </Grid>
     </Grid>

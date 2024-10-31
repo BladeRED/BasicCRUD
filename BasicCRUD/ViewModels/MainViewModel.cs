@@ -1,20 +1,23 @@
 ﻿using BasicCRUD.Contexts;
 using BasicCRUD.Models;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.Input;
+using MaterialDesignThemes.Wpf;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BasicCRUD.ViewModels
 {
     public class MainViewModel: INotifyPropertyChanged
     {
         private GamerContext GamerContext;
+        SnackbarMessageQueue SnackbarMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
+
+
+        private Gamer _gamer = new Gamer();
+        public Gamer Gamer { get { return _gamer; }set {
+                _gamer = value;
+                OnPropertyChanged(nameof(Gamers));
+            } }
 
         private List<Gamer> _gamers;
         public List<Gamer> Gamers
@@ -30,6 +33,7 @@ namespace BasicCRUD.ViewModels
         // button commands //
 
         private RelayCommand _getGamersCommand;
+        private RelayCommand _addGamersCommand;
 
         // event of INotify which is called when a property change //
 
@@ -50,6 +54,14 @@ namespace BasicCRUD.ViewModels
             }
         }
 
+        public RelayCommand AddGamersCommand
+        {
+            get
+            {
+                return _addGamersCommand ?? (_addGamersCommand = new RelayCommand(AddGamers));
+            }
+        }
+
         public MainViewModel()
         {
             //GamerContext = new GamerContext();
@@ -61,6 +73,28 @@ namespace BasicCRUD.ViewModels
             using (var context = new GamerContext())
             {
                 Gamers = new List<Gamer>(context.Gamers.ToList());
+            }
+
+        }
+
+        public void AddGamers()
+        {
+
+            using (var context = new GamerContext())
+            {
+                Gamer newGamer = new Gamer(Gamer.Name, Gamer.Age, Gamer.FavouriteGame);
+
+                if (newGamer != null)
+                {
+                    context.Gamers.Add(newGamer);
+                    context.SaveChanges();
+
+                }
+                else
+                {
+                    SnackbarMessageQueue.Enqueue("Une erreur s'est produite lors de l'enregistrement des données. Veuillez vérifier les informations saisies et réessayer.");
+                }
+                
             }
 
         }

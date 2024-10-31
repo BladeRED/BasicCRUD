@@ -1,6 +1,7 @@
 ﻿using BasicCRUD.Contexts;
 using BasicCRUD.Models;
 using BasicCRUD.ViewModels;
+using MaterialDesignThemes.Wpf;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,8 +22,10 @@ namespace BasicCRUD
     {
         public MainWindow()
         {
+
             InitializeComponent();
             DataContext = new MainViewModel();
-        }
+            
+    }
     }
 }
