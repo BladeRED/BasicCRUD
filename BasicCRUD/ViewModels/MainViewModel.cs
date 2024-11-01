@@ -12,12 +12,15 @@ namespace BasicCRUD.ViewModels
         private GamerContext GamerContext;
         SnackbarMessageQueue SnackbarMessageQueue = new SnackbarMessageQueue(TimeSpan.FromSeconds(5));
 
+        // Add properties //
 
         private Gamer _gamer = new Gamer();
         public Gamer Gamer { get { return _gamer; }set {
                 _gamer = value;
                 OnPropertyChanged(nameof(Gamers));
             } }
+
+        // Delete properties //
 
         private string _gamerToDelete;
         public string GamerToDelete {
@@ -28,6 +31,19 @@ namespace BasicCRUD.ViewModels
             }
         }
 
+        // Get by name properties //
+        private string _gamerToSearch;
+        public string GamerToSearch
+        {
+            get { return _gamerToSearch; }
+            set
+            {
+                _gamerToSearch = value;
+                OnPropertyChanged(nameof(GamerToSearch));
+            }
+        }
+
+        // Get all properties //
         private List<Gamer> _gamers;
         public List<Gamer> Gamers
         {
@@ -37,13 +53,43 @@ namespace BasicCRUD.ViewModels
                 _gamers = value;
                 OnPropertyChanged(nameof(Gamers));
             }
-        } 
+        }
+
+        // Update Properties //
+
+        private string _nameContent;
+        public string NameContent { 
+            get { return _nameContent; }
+            set 
+            {
+                _nameContent = value;
+                OnPropertyChanged(nameof(NameContent)); 
+            } 
+        }
+
+        private string _ageContent;
+        public string AgeContent { get { return _ageContent; } 
+            set {
+                _ageContent = value;
+                OnPropertyChanged(nameof(AgeContent));
+            } 
+        }
+        private string _favContent;
+        public string FavContent { get { return _favContent; }
+            set {
+            
+                _favContent = value;
+                OnPropertyChanged(nameof(FavContent));
+            } 
+        }
 
         // button commands //
 
         private RelayCommand _getGamersCommand;
+        private RelayCommand _getByNameCommand;
         private RelayCommand _addGamersCommand;
         private RelayCommand _deleteGamersCommand;
+        private RelayCommand _updateGamersCommand;
 
         // event of INotify which is called when a property change //
 
@@ -64,6 +110,14 @@ namespace BasicCRUD.ViewModels
             }
         }
 
+        public RelayCommand GetByNameCommand
+        {
+            get
+            {
+                return _getByNameCommand ?? (_getByNameCommand = new RelayCommand(GetByName));
+            }
+        }
+
         public RelayCommand AddGamersCommand
         {
             get
@@ -80,6 +134,14 @@ namespace BasicCRUD.ViewModels
             }
         }
 
+        public RelayCommand UpdateGamersCommand
+        {
+            get
+            {
+                return _updateGamersCommand ?? (_updateGamersCommand = new RelayCommand(UpdateGamers));
+            }
+        }
+
         public MainViewModel()
         {
             //GamerContext = new GamerContext();
@@ -91,6 +153,20 @@ namespace BasicCRUD.ViewModels
             using (var context = new GamerContext())
             {
                 Gamers = new List<Gamer>(context.Gamers.ToList());
+            }
+
+        }
+
+        public void GetByName()
+        {
+
+            using (var context = new GamerContext())
+            {
+                Gamer? GamerSearched = context.Gamers.FirstOrDefault(g => g.Name == GamerToSearch);
+                NameContent = GamerSearched!.Name;
+                AgeContent = GamerSearched.Age.ToString();
+                FavContent = GamerSearched.FavouriteGame;
+
             }
 
         }
@@ -128,6 +204,33 @@ namespace BasicCRUD.ViewModels
                 {
                     Gamer? DeletedGamer = context.Gamers.FirstOrDefault(g => g.Name == deletedGamer);
                     context.Gamers.Remove(DeletedGamer!);
+                    context.SaveChanges();
+
+                }
+                else
+                {
+                    SnackbarMessageQueue.Enqueue("Une erreur s'est produite lors de l'enregistrement des données. Veuillez vérifier les informations saisies et réessayer.");
+                }
+
+            }
+
+        }
+
+        public void UpdateGamers()
+        {
+
+            using (var context = new GamerContext())
+            {
+                Gamer? updateGamer = context.Gamers.FirstOrDefault(g=>g.Name == GamerToSearch);
+                int.TryParse(AgeContent, out int AgeContentInt);
+                
+                updateGamer!.Name = NameContent;
+                updateGamer.Age = AgeContentInt;
+                updateGamer.FavouriteGame = FavContent;
+
+                if (updateGamer != null)
+                {
+                    context.Gamers.Update(updateGamer);
                     context.SaveChanges();
 
                 }
