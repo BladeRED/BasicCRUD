@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BasicCRUD" xmlns:viewmodels="clr-namespace:BasicCRUD.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="1200">
+        Title="MainWindow" Height="524" Width="1254">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -13,12 +13,12 @@
             <ColumnDefinition Width="147*"/>
         </Grid.ColumnDefinitions>
 
-        <Button Command="{Binding GetGamersCommand}" Content="Get All Users" HorizontalAlignment="Left" Margin="498,320,0,0" VerticalAlignment="Top" Width="152" Background="LightBlue" Visibility="Visible" Grid.Column="1"/>
+        <Button Command="{Binding GetGamersCommand}" Content="Get All Users" HorizontalAlignment="Left" Margin="502,344,0,0" VerticalAlignment="Top" Width="152" Background="LightBlue" Visibility="Visible" Grid.Column="1"/>
         <DataGrid ItemsSource="{Binding Gamers}" AutoGenerateColumns="True" Margin="309,19,93,181" Grid.Column="1"/>
         <TextBlock Grid.Column="1" Margin="137,281,600,179"></TextBlock>
 
 
-        <Grid Grid.ColumnSpan="2" Margin="35,19,650,179">
+        <Grid Grid.ColumnSpan="2" Margin="50,50,692,134">
 
             <Grid.RowDefinitions>
                 <RowDefinition />
@@ -26,14 +26,26 @@
                 <RowDefinition />
 
             </Grid.RowDefinitions>
-            <Label Grid.Row ="0" Content="Name of the Gamer"/>
-            <TextBox Grid.Row="0" Margin="10,35,83,25" Text="{Binding Gamer.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Label Grid.Row ="0" Content="Name of the Gamer" Margin="0,0,299,0"/>
+            <TextBox Grid.Row="0" Margin="6,34,306,25" Text="{Binding Gamer.Name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label Grid.Row ="1" Content="Age of the Gamer" />
-            <TextBox  Grid.Row ="1" Margin="10,48,119,13" Text="{Binding Gamer.Age, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox  Grid.Row ="1" Margin="6,34,306,25" Text="{Binding Gamer.Age, UpdateSourceTrigger=PropertyChanged}"/>
             <Label Grid.Row ="2" Content="Favourite Game"/>
-            <TextBox  Grid.Row ="2" Margin="10,34,69,12" Text="{Binding Gamer.FavouriteGame, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button Command="{Binding AddGamersCommand}" Content="Create Gamer" Margin="190,116,191,-49" Background="LightGreen" Grid.Row="2"></Button>
+            <TextBox  Grid.Row ="2" Margin="6,34,306,25" Text="{Binding Gamer.FavouriteGame, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Command="{Binding AddGamersCommand}" Content="Create Gamer" Margin="40,113,340,-45" Background="LightGreen" Grid.Row="2"></Button>
 
+        </Grid>
+
+        <Grid Grid.Column="1" Margin="105,320,459,33">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="19*"/>
+                <RowDefinition Height="39*" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row ="2" Content="Enter the name of the gamer you want to delete" ></Label>
+            <TextBox  Grid.Row ="2" Margin="10,34,69,12" Text="{Binding GamerToDelete, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Command="{Binding DeleteGamersCommand}" Content="Delete Gamer" Background="Red" Margin="89,77,148,-28" Grid.Row="2"/>
         </Grid>
     </Grid>
 

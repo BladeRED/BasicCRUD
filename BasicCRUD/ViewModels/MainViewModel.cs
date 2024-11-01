@@ -19,6 +19,15 @@ namespace BasicCRUD.ViewModels
                 OnPropertyChanged(nameof(Gamers));
             } }
 
+        private string _gamerToDelete;
+        public string GamerToDelete {
+            get { return _gamerToDelete; }
+            set {
+                _gamerToDelete = value;
+                OnPropertyChanged(nameof(GamerToDelete));
+            }
+        }
+
         private List<Gamer> _gamers;
         public List<Gamer> Gamers
         {
@@ -34,6 +43,7 @@ namespace BasicCRUD.ViewModels
 
         private RelayCommand _getGamersCommand;
         private RelayCommand _addGamersCommand;
+        private RelayCommand _deleteGamersCommand;
 
         // event of INotify which is called when a property change //
 
@@ -59,6 +69,14 @@ namespace BasicCRUD.ViewModels
             get
             {
                 return _addGamersCommand ?? (_addGamersCommand = new RelayCommand(AddGamers));
+            }
+        }
+
+        public RelayCommand DeleteGamersCommand
+        {
+            get
+            {
+                return _deleteGamersCommand ?? (_deleteGamersCommand = new RelayCommand(DeleteGamers));
             }
         }
 
@@ -95,6 +113,29 @@ namespace BasicCRUD.ViewModels
                     SnackbarMessageQueue.Enqueue("Une erreur s'est produite lors de l'enregistrement des données. Veuillez vérifier les informations saisies et réessayer.");
                 }
                 
+            }
+
+        }
+
+        public void DeleteGamers()
+        {
+
+            using (var context = new GamerContext())
+            {
+                string deletedGamer = GamerToDelete;
+
+                if (deletedGamer != null)
+                {
+                    Gamer? DeletedGamer = context.Gamers.FirstOrDefault(g => g.Name == deletedGamer);
+                    context.Gamers.Remove(DeletedGamer!);
+                    context.SaveChanges();
+
+                }
+                else
+                {
+                    SnackbarMessageQueue.Enqueue("Une erreur s'est produite lors de l'enregistrement des données. Veuillez vérifier les informations saisies et réessayer.");
+                }
+
             }
 
         }

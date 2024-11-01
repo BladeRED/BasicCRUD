@@ -27,5 +27,6 @@ namespace BasicCRUD
             DataContext = new MainViewModel();
             
     }
+
     }
 }
